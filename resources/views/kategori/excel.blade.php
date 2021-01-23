@@ -21,7 +21,7 @@
                         </div>
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-2">
-                                <button type="submit" class="btn btn-success btn-sm"><i class="fas fa-plus-square"> Upload</i></a></button>
+                                <button type="submit" class="btn btn-success btn-sm"><i class="fas fa-file-upload"> Upload</i></a></button>
                                 <a class="btn btn-info btn-sm" href="{{route('kategori.index')}}"><i class="fas fa-reply"> kembali</i></a>
                             </div>
                         </div>

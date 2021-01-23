@@ -15,7 +15,7 @@
                         <i class="fas fa-plus-square"> Tambah Kategori</i>
                     </a>
                     <a class="btn btn-success btn-sm" href="{{route('kategori.excel')}}">
-                        <i class="fas fa-plus-square"> Import File Excel</i>
+                        <i class="fas fa-file-upload"> Import File Excel</i>
                     </a>
                     <hr>
                     @include('notifikasi')

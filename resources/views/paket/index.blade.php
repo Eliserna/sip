@@ -11,7 +11,9 @@
             <div class="card">
                <div class="card-header"><i class="fas fa-database"> Data Paket</i></div>
                   <div class="card-body">
-                 <a href="{{ route('paket.create') }}" class="btn btn-success btn-sm"><i class="fas fa-plus-square"> Tambah Paket</i></a>
+                 <a href="{{ route('paket.create') }}" class="btn btn-success btn-sm">
+                    <i class="fas fa-plus-square"> Tambah Paket</i>
+                </a>
                    <hr>
                    @include('notifikasi')
                      <table class="table table-bordered" id="users-table">

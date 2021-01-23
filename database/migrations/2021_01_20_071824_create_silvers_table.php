@@ -1,8 +1,10 @@
 <?php
+
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-class CreatePaketsTable extends Migration
+
+class CreateSilversTable extends Migration
 {
     /**
      * Run the migrations.
@@ -11,17 +13,24 @@ class CreatePaketsTable extends Migration
      */
     public function up()
     {
-        Schema::create('pakets', function (Blueprint $table) {
+        Schema::create('silvers', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nama_paket');
             $table->string('harga_paket');
             $table->string('perpanjangan');
-            $table->string('jumlah_paket');
-            $table->unsignedInteger('id_kategori');
-            $table->foreign('id_kategori')->references('id')->on('kategoris')->onDelete('cascade');
+            $table->string('domain');
+            $table->string('penyimpanan');
+            $table->string('bandwith');
+            $table->string('desain');
+            $table->string('fasilitas');
+            $table->string('training');
+            $table->string('webmail');
+            $table->string('maintenance');
+            $table->string('optimasi');
             $table->timestamps();
         });
     }
+
     /**
      * Reverse the migrations.
      *
@@ -29,7 +38,6 @@ class CreatePaketsTable extends Migration
      */
     public function down()
     {
-        // Schema::dropIfExists('pakets');
-        // $table->dropForeign(['id_kategori']);
+        Schema::dropIfExists('silvers');
     }
 }

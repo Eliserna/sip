@@ -36,47 +36,41 @@ class TransaksiController extends Controller
     }
     public function laporan()
     {
-        $fpdf = new Fpdf();
-        $fpdf::AddPage();
-        $fpdf::SetFont('Courier', 'B', 18);
-        $fpdf::Cell(50, 25, 'Hello World!');
-        $fpdf::Output();
+        $pdf = new Fpdf("L", "cm", "A4");
+        $pdf::AddPage();
+        $pdf::SetFont('Arial', 'B', 18);
+        $pdf::Cell(185, 7, 'Laporan Transaksi Paket', 0, 1, 'C');
+        $pdf::SetFont('Arial', '', 12);
+        $pdf::Cell(185, 5,'Bandung', 0,1,'C');
+        $pdf::SetFont('Arial', '', 12);
+        $pdf::Cell(185, 5,"Telepon : 083816752726 ", 0, 1,'C');
+        $pdf::Line(10, 30, 190, 30);
+        $pdf::Line(10, 31, 190, 31);
+        $pdf::Cell(30, 10, '', 0, 1);
+        $pdf::SetFont('Arial', 'B', 14);
+        $pdf::Cell(185, 5, 'Transaksi Paket', 0, 0,'C');
+        $pdf::Cell(30, 10,'', 0, 1);
+        $pdf::Cell(45, 7,  'Nama Paket', 1, 0);
+        $pdf::Cell(38, 7, 'Total', 1,0);
+        $pdf::Cell(38, 7, 'DP', 1,0);
+        $pdf::Cell(38, 7, 'Sisa', 1,0);
+        $pdf::Cell(30, 7, 'Tanggal', 1, 1);
+        $transaksi=Transaksi::where('status','1')->get();
+        foreach($transaksi as $item){
+            $pdf::Cell(45, 7, $item->paket->nama_paket, 1, 0);
+            $total=str_replace('.','',$item->paket->harga_paket);
+            $pdf::Cell(38, 7, "Rp.".number_format($total*$item->qty).",-", 1,0);
+            $dp=str_replace('.','',$total*75/100);
+            $pdf::Cell(38, 7, "Rp.".number_format($dp).",-", 1,0);
+            $sisa=str_replace('.','',$total-$dp);
+            $pdf::Cell(38, 7, "Rp.".number_format($sisa).",-", 1,0);
+            $pdf::Cell(30, 7, \Carbon\Carbon::parse($item->created_at)->formatLocalized('%d %b %Y'), 1,1);
+        }
+        $pdf::Output();
         exit;
-        // $pdf = new Fpdf("L", "cm", "A4");
-        // $pdf::AddPage();
-        // $pdf::SetFont('Arial', 'B', 18);
-        // $pdf::Cell(185, 7, 'Laporan Penjualan Paket', 0, 1, 'C');
-        // $pdf::SetFont('Arial', '', 12);
-        // $pdf::Cell(185, 5,'Bandung', 0,1,'C');
-        // $pdf::SetFont('Arial', '', 12);
-        // $pdf::Cell(185, 5,"Telepon : 083816752726 ", 0, 1,'C');
-        // $pdf::Line(10, 30, 190, 30);
-        // $pdf::Line(10, 31, 190, 31);
-        // $pdf::Cell(30, 10, '', 0, 1);
-        // $pdf::SetFont('Arial', 'B', 14);
-        // $pdf::Cell(185, 5, 'Penjualan Paket', 0, 0,'C');
-        // $pdf::Cell(30, 10,'', 0, 1);
-        // $pdf::Cell(60, 7,  'Nama Paket', 1, 0);
-        // $pdf::Cell(25, 7, 'Qty', 1, 0);
-        // $pdf::Cell(40, 7, 'Harga Paket', 1, 0);
-        // $pdf::Cell(38, 7, 'Subtotal', 1,0);
-        // $pdf::Cell(30, 7, 'Tanggal', 1, 1);
-        // $transaksi=Transaksi::where('status','1')->get();
-        // foreach($transaksi as $item){
-        //     $pdf::Cell(60, 7, $item->paket->nama_paket, 1, 0);
-        //     $pdf::Cell(25, 7, $item->qty, 1, 0);
-        //     $harga=str_replace('.','',$item->paket->harga_paket);
-        //     $pdf::Cell(40, 7, "Rp.".number_format($harga).",-", 1, 0);
-        //     $pdf::Cell(38, 7, "Rp.".number_format($harga*$item->qty).",-", 1,0);
-        //     $pdf::Cell(30, 7, \Carbon\Carbon::parse($item->created_at)->formatLocalized('%d %b %Y'), 1,1);
-        // }
-        // $pdf::Output();
-        // exit;
-
     }
     public function excel()
     {
         return(new TransaksiExport)->download('penjualan_paket.xlsx');
     }
-
 }

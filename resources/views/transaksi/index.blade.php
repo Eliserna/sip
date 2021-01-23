@@ -12,7 +12,7 @@
         <div class="card-header"><i class="fas fa-database"> Transaksi Paket</i></div>
                     <div class="card-body">
                         @include('validasi')
-                    <h3><i class="fas fa-file-signature"> Form Transaksi</i></h3>
+                    <h3><i class="fab fa-wpforms"> Form Transaksi</i></h3>
                     <table class="table table-bordered">
                         {!! Form::open(['route'=>'transaksi.store','method'=>'POST']) !!}
                             <tr>
@@ -32,10 +32,10 @@
                             <tr>
                                 <td>
                                     <button type="submit" name="submit" class="btn btn-success">
-                                        <i class="fas fa-plus-square"> Simpan</i>
+                                        <i class="far fa-paper-plane"> Simpan</i>
                                     </button>
                                     <a href="{{route('transaksi.update')}}" class="btn btn-danger">
-                                        <i class="fas fa-reply"> Selesai</i>
+                                        <i class="far fa-check-circle"> Selesai</i>
                                     </a>
                                 </td>
                             </tr>
@@ -46,12 +46,12 @@
                         <tr>
                             <th><i class="far fa-sticky-note"> No</i></th>
                             <th><i class="fas fa-file-signature"> Nama Paket</i></th>
-                            <th><i class="fab fa-wolf-pack-battalion"> Qty</i></th>
+                            <th><i class="fab fa-cuttlefish"> Qty</i></th>
                             <th><i class="fas fa-money-bill-alt"> Harga Paket</i></th> 
-                            <th><i class="fab fa-cuttlefish"> Subtotal</i></th>
-                            <th><i class="fas fa-reply"> Cancel</i></th>
+                            <th><i class="fas fa-money-bill-alt"> Subtotal</i></th>
+                            <th><i class="far fa-times-circle"> Cancel</i></th>
                         </tr>
-                        <?php $no=1; $total=0; ?>
+                        <?php $no=1; $total=0; $dp=0; $sisa=0;?>
                          @foreach ($transaksi as $item)
                             <tr>
                                 <td>{{$no}}</td>
@@ -62,15 +62,25 @@
                                 @php($harga=str_replace('.','',$item->paket->harga_paket))
                                 <td>{{"Rp.".number_format($harga*$item->qty).",-" }}</td>
                                 {!! Form::open(['route'=>['transaksi.destroy',$item->id],'method'=>'DELETE']) !!}
-                                <td><button type="submit" class="btn btn-danger"><i class="fas fa-reply"> Cancel</i></button></td>
+                                <td><button type="submit" class="btn btn-danger"><i class="far fa-times-circle"> Cancel</i></button></td>
                                 {!! Form::close() !!}
                                 <?php $no++ ?>
                                 <?php $total=$total+($harga*$item->qty) ?>
+                                <?php $dp=$total*(75/100) ?>
+                                <?php $sisa=$total-$dp ?>
                             </tr>
                        @endforeach
                             <tr>
-                                <td colspan="5"><p align="right"><i class="fab fa-wolf-pack-battalion"> Total</i></p></td>
+                                <td colspan="5"><p align="right"><i class="fas fa-money-bill-alt"> Total</i></p></td>
                                 <td>{{"Rp.".number_format($total).",-" }}</td>
+                            </tr>
+                            <tr>
+                                <td colspan="5"><p align="right"><i class="fas fa-money-bill-alt"> DP</i></p></td>
+                                <td>{{"Rp.".number_format($dp).",-" }}</td>
+                            </tr>
+                            <tr>
+                                <td colspan="5"><p align="right"><i class="fas fa-money-bill-alt"> Sisa</i></p></td>
+                                <td>{{"Rp.".number_format($sisa).",-" }}</td>
                             </tr>
                     </table>
                 </div>
