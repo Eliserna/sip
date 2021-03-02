@@ -9,7 +9,7 @@
     <div class="row">
         <div class="col-md-6">
             <div class="card">
-                <div class="card-header"><i class="fas fa-database"> Grafik Penjualan</i></div>
+                <div class="card-header"><i class="fas fa-database"> Grafik Pemesanan</i></div>
                 <canvas id="myChart" width="400" height="400"></canvas>
             </div>
         </div>

@@ -16,9 +16,6 @@ class CreatePaketsTable extends Migration
             $table->string('nama_paket');
             $table->string('harga_paket');
             $table->string('perpanjangan');
-            $table->string('jumlah_paket');
-            $table->unsignedInteger('id_kategori');
-            $table->foreign('id_kategori')->references('id')->on('kategoris')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -29,7 +26,6 @@ class CreatePaketsTable extends Migration
      */
     public function down()
     {
-        // Schema::dropIfExists('pakets');
-        // $table->dropForeign(['id_kategori']);
+        Schema::dropIfExists('pakets');
     }
 }

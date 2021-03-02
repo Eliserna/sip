@@ -1,10 +1,8 @@
 <?php
-
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-
-class CreateTransaksisTable extends Migration
+class CreatePembayaransTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +11,16 @@ class CreateTransaksisTable extends Migration
      */
     public function up()
     {
-        Schema::create('transaksis', function (Blueprint $table) {
+        Schema::create('pembayarans', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('id_paket');
-            $table->foreign('id_paket')->references('id')->on('pakets')->onDelete('cascade');
-            $table->string('qty');
+            $table->unsignedInteger('id_pemesanan');
+            $table->foreign('id_pemesanan')->references('id')->on('pemesanans')->onDelete('cascade');
             $table->boolean('status')->nullable()->default(false);
+            $table->LongText('img');
+            $table->LongText('pelunasan');
             $table->timestamps();
         });
     }
-
     /**
      * Reverse the migrations.
      *
@@ -30,7 +28,6 @@ class CreateTransaksisTable extends Migration
      */
     public function down()
     {
-        // Schema::dropIfExists('transaksis');
-        // $table->dropForeign(['id_paket']);
+        Schema::dropIfExists('pembayarans');
     }
 }

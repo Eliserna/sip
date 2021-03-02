@@ -2,6 +2,9 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Paket;
+use App\DetailPaket;
+use App\Imports\PaketImport;
+use Excel;
 class PaketController extends Controller
 {
     /**
@@ -35,7 +38,6 @@ class PaketController extends Controller
             'nama_paket'=>'required|min:4',
             'harga_paket'=>'required',
             'perpanjangan'=>'required',
-            'jumlah_paket'=>'required',
         ]);
         Paket::create($request->all());
         return redirect()->route('paket.index')->with('pesan','Data Paket Berhasil di Tambahkan');
@@ -59,7 +61,7 @@ class PaketController extends Controller
     public function edit($id)
     {
         $paket=Paket::findOrFail($id);
-        return view('paket.edit',compact('paket'));
+        return view('paket.update',compact('paket'));
     }
     /**
      * Update the specified resource in storage.
@@ -74,7 +76,6 @@ class PaketController extends Controller
             'nama_paket'=>'required|min:4',
             'harga_paket'=>'required',
             'perpanjangan'=>'required',
-            'jumlah_paket'=>'required',
         ]);
         $paket=Paket::find($id);
         $paket->update($request->all());
@@ -91,5 +92,27 @@ class PaketController extends Controller
         $paket=Paket::find($id);
         $paket->delete();
         return redirect()->route('paket.index')->with('pesan','Data Paket Berhasil di Hapus');
+    }
+    public function list()
+    {
+        $detailpaket=DetailPaket::all();
+        return view('paket.list',compact('detailpaket'));
+    }
+    public function excel()
+    {
+        return view('paket.excel');
+    }
+    public function upload(Request $request)
+    {
+        // return 'upload ok';
+        $this->validate($request,[
+            'file'=>'required||mimes:xls,xlsx'
+        ]);
+        if ($request->hasFile('file')) {
+            $file=$request->file('file');
+            Excel::import(new PaketImport,$file);
+            return redirect()->route('paket.index')->with('pesan','File Berhasil di Upload');
+        }
+        return redirect()->back()->with('pesan','File Gagal di Upload');
     }
 }

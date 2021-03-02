@@ -4,49 +4,40 @@
     .card-header {
        background-color:  #27c8f9;
      }
+     .card-body {
+        background-color:   hsl(125, 66%, 72%);
+     }
 </style>
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header"><i class="fas fa-edit"> Edit Paket</i></div>
+                <div class="card-header"><i class="fas fa-edit"> Update Paket</i></div>
                     <div class="card-body">
                         @include('validasi')
                         {!! Form::model($paket,['route'=>['paket.update',$paket->id],'method'=>'PUT']) !!}
                         <div class="form-group row">
                             <label class="col-md-2 col-form-label text-md-right"><i class="fas fa-file-signature"> Nama Paket</i></label>
                                 <div class="col-md-6">
-                                    {!! Form::text('nama_paket',null,['class'=>'form-control']) !!}
+                                    {!! Form::text('nama_paket',null,['class'=>'form-control','autocomplete'=>'off']) !!}
                                 </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-md-2 col-form-label text-md-right"><i class="fas fa-money-bill-alt"> Harga Paket</i></label>
                             <div class="col-md-6">
-                                {!! Form::text('harga_paket',null,['class'=>'form-control uang']) !!}
+                                {!! Form::text('harga_paket',null,['class'=>'form-control uang','autocomplete'=>'off']) !!}
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-md-2 col-form-label text-md-right"><i class="fas fa-puzzle-piece"> Perpanjangan</i></label>
                             <div class="col-md-6">
-                                {!! Form::text('perpanjangan',null,['class'=>'form-control uang']) !!}
+                                {!! Form::text('perpanjangan',null,['class'=>'form-control uang','autocomplete'=>'off']) !!}
                             </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-md-2 col-form-label text-md-right"><i class="fab fa-cuttlefish"> Jumlah Paket</i></label>
-                            <div class="col-md-6">
-                                {!! Form::number('jumlah_paket',null,['class'=>'form-control']) !!}
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-md-2 col-form-label text-md-right"><i class="fas fa-cubes"> Nama kategori</i></label>
-                                <div class="col-md-6">
-                                {!! Form::select('id_kategori',\App\Kategori::pluck('nama_kategori','id'),NULL,['class'=>'form-control']) !!}
-                                </div>
                         </div>
                             <div class="form-group row mb-0">
                                 <div class="col-md-6 offset-md-2">
                                     <button type="submit" class="btn btn-success"><i class="fas fa-edit"> Update</i></button>
-                                    <a href="{{ route('paket.index') }}" class="btn btn-info"><i class="fas fa-reply"> Kembali</i></a>
+                                    <a href="{{ route('paket.index') }}" class="btn btn-info"><i class="fas fa-reply"> Back</i></a>
                                 </div>
                             </div>
                         </div>

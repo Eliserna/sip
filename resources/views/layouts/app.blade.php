@@ -20,14 +20,17 @@
         .navbar-expand-md {
            background-color:  #27c8f9;
          }
+        .body {
+            background-color:   hsl(125, 66%, 72%);
+         }
     </style>
 </head>
-<body>
+<body class="body">
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
             <div class="container">
                 <a class="navbar-brand" href="#">
-                    <img src="{{ asset('inovindo.png') }}" alt="" width="50" height="50">
+                    <img src="{{ asset('idm.png') }}" alt="" width="150px">
                     {{-- <i class="fas fa-assistive-listening-systems"> {{ config('app.name', 'SIP') }}</i> --}}
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"   aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -52,29 +55,32 @@
                                 @endif
                             </li>
                         @else
-                         <li class="nav-item">
-                                <a class="nav-link" href="{{ route('paket.list') }}">
-                                    <i class="fab fa-cc-mastercard"> <b>Paket</b></i>
-                                </a>
-                         </li>
                          @if (auth()->user()->level=="admin")
                          <li class="nav-item">
-                                <a class="nav-link" href="{{ route('kategori.index') }}">
-                                    <i class="fab fa-cc-mastercard"> <b>Kategori Paket</b></i>
-                                </a>
+                            <a class="nav-link" href="{{ route('customer.index') }}">
+                                <i class="fab fa-cc-mastercard"> <b> Customer</b></i>
+                            </a>
                          </li>
                          <li class="nav-item">
-                                <a class="nav-link" href="{{ route('paket.index') }}">
-                                    <i class="fas fa-address-card"> Data Paket</i>
-                                </a>
+                            <a class="nav-link" href="{{ route('paket.index') }}">
+                                <i class="fas fa-address-card"> Paket</i>
+                            </a>
                          </li>
-                         @endif
                          <li class="nav-item">
-                                <a class="nav-link" href="{{ route('transaksi.index') }}">
-                                    <i class="fas fa-money-bill"> Transaksi Paket</i>
-                                </a>
+                            <a class="nav-link" href="{{ route('detailpaket.index') }}">
+                                <i class="fas fa-address-card"> Detail Paket</i>
+                            </a>
                          </li>
-                         @if (auth()->user()->level=="admin")
+                         <li class="nav-item">
+                            <a class="nav-link" href="{{ route('transaksi.index') }}">
+                                <i class="fas fa-money-bill"> Pemesanan</i>
+                            </a>
+                         </li>
+                         <li class="nav-item">
+                            <a class="nav-link" href="{{ route('transaksi.bayar') }}">
+                                <i class="fas fa-money-bill"> Pembayaran</i>
+                            </a>
+                         </li>
                          <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                <i class="fas fa-caret-square-down"> Export Report</i>
@@ -89,21 +95,38 @@
                             </div>
                         </li>
                         @endif
+                        @if (auth()->user()->level=="user")
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('paket.list') }}">
+                                <i class="fab fa-cc-mastercard"> <b>Paket</b></i>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('transaksi.index') }}">
+                                <i class="fas fa-money-bill"> Data Pemesanan</i>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('transaksi.bayar') }}">
+                                <i class="fas fa-money-bill"> Data Pembayaran</i>
+                            </a>
+                        </li>
+                        @endif
                         <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    <i class="fas fa-caret-square-down"> {{ Auth::user()->name }}</i>
-                                </a>
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                <i class="fas fa-caret-square-down"> {{ Auth::user()->name }}</i>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                       <i class="fas fa-sign-out-alt">  {{ __('Logout') }}</i>
-                                    </a>
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                        @csrf
-                                    </form>
-                                </div>
-                            </li>
+                                    <i class="fas fa-sign-out-alt">  {{ __('Logout') }}</i>
+                                </a>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                    @csrf
+                                </form>
+                            </div>
+                        </li>
                         @endguest
                     </ul>
                 </div>

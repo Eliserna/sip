@@ -1,10 +1,8 @@
 <?php
-
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-
-class CreateDetailPaketTable extends Migration
+class CreateDetailPaketsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,24 +11,15 @@ class CreateDetailPaketTable extends Migration
      */
     public function up()
     {
-        Schema::create('detail_paket', function (Blueprint $table) {
+        Schema::create('detail_pakets', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('id_paket');
             $table->foreign('id_paket')->references('id')->on('pakets')->onDelete('cascade');
             $table->string('tipe');
-            $table->string('domain');
-            $table->string('penyimpanan');
-            $table->string('bandwith');
-            $table->string('desain');
-            $table->string('fasilitas');
-            $table->string('training');
-            $table->string('webmail');
-            $table->string('maintenance');
-            $table->string('optimasi');
+            $table->string('content');
             $table->timestamps();
         });
     }
-
     /**
      * Reverse the migrations.
      *
@@ -38,6 +27,6 @@ class CreateDetailPaketTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('detail_paket');
+        Schema::dropIfExists('detail_pakets');
     }
 }

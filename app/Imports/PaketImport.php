@@ -2,10 +2,10 @@
 
 namespace App\Imports;
 
-use App\Kategori;
+use App\Paket;
 use Maatwebsite\Excel\Concerns\ToModel;
 
-class KategoriImport implements ToModel
+class PaketImport implements ToModel
 {
     /**
     * @param array $row
@@ -14,8 +14,10 @@ class KategoriImport implements ToModel
     */
     public function model(array $row)
     {
-        return new Kategori([
-            'nama_kategori'=>$row[0]
+        return new Paket([
+            'nama_paket'=>$row[0],
+            'harga_paket'=>$row[1],
+            'perpanjangan'=>$row[2]
         ]);
     }
 }
